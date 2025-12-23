@@ -1,3 +1,42 @@
+# --- Node / Next.js ---
+FrontEnd/node_modules/
+FrontEnd/.next/
+FrontEnd/out/
+FrontEnd/.turbo/
+
+# --- Python / Flask ---
+BackEnd/.venv/
+BackEnd/venv/
+BackEnd/env/
+BackEnd/class/
+**/__pycache__/
+**/*.py[cod]
+
+# --- Environments ---
+**/.env
+**/.env.local
+**/.env.*.local
+
+# --- Logs & coverage ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+coverage/
+
+# --- Builds / dist ---
+dist/
+build/
+
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+
+# --- User request: do NOT push requirements file ---
+BackEnd/requirments.txt
+BackEnd/requirements.txt
 # Node / Next.js (FrontEnd)
 FrontEnd/node_modules/
 FrontEnd/.next/
@@ -34,12 +73,12 @@ BackEnd/.env
 BackEnd/.venv/
 BackEnd/venv/
 BackEnd/env/
-
+BackEnd/requirements.txt
 # Virtual environment folder inside BackEnd
 BackEnd/class/
 
 # IDE/editor
-.vscode/
+.vscode/    
 *.code-workspace
 .idea/
 

@@ -1,90 +1,73 @@
-# sms-backend-frontend
+# Student Management System
 
-Student Management System — a full‑stack web application for managing students, teachers, admins, and attendance with a modern dashboard UI.
+A full‑stack web application for managing students, teachers, admins, and attendance through a modern, responsive dashboard.
 
-**Type:** Full‑stack web application  
-**Frontend:** Next.js (App Router) + React  
-**Backend:** Python Flask (modular routers/schemas/models)
+**Type:** Full‑stack monorepo  
+**Frontend:** Next.js (App Router) + React + Tailwind + Radix UI  
+**Backend:** Flask + SQLAlchemy (modular routers/schemas/models)
 
 ---
 
 ## Overview
-- Manage students, teachers, admins, and attendance across an admin dashboard.
-- Frontend built with Next.js App Router, Tailwind CSS, and Radix UI.
-- Backend served from [BackEnd/app.py](BackEnd/app.py), creating the app via `src.create_app()`.
-- Clean separation of concerns with models, routers, and schemas in [BackEnd/src](BackEnd/src).
-
-## Features
-- Authentication (login/signup) for admin users.
-- CRUD for students, teachers, and admins.
-- Attendance tracking and reporting.
-- Responsive dashboard with reusable UI components.
-- Form validation and error handling.
-- Environment‑based config (development vs. production).
+- Admin dashboard for CRUD over students, teachers, admins
+- Attendance tracking and reporting
+- Clear separation: Next.js FrontEnd and Flask BackEnd
+- Maintainable structure (models, routers, schemas)
 
 ## Tech Stack
-### Frontend (Next.js 14 / React 19)
-- Framework: Next.js (App Router)
-- UI Library: React
+### Frontend (Next.js 14 / React 18+)
+- Routing: App Router
 - Styling: Tailwind CSS
-- UI Components: Radix UI primitives
-- Forms: React Hook Form + Zod validation
-- State: React Context / Zustand (optional)
-- HTTP: Axios or Fetch API
+- Forms/Validation: React Hook Form + Zod
 
 ### Backend (Python Flask)
-- Framework: Flask
 - ORM: SQLAlchemy
-- Validation: Pydantic‑style schemas
-- Database: SQLite (development), PostgreSQL (production)
-- Auth: JWT or session‑based
-- API: RESTful endpoints
+- Auth: JWT/session friendly
+- DB: SQLite (dev), PostgreSQL (prod)
 
-## Project Structure
-- Frontend app routes: [FrontEnd/app](FrontEnd/app) including auth and admin sections.
-- UI components: [FrontEnd/components/ui](FrontEnd/components/ui) reusable building blocks.
-- Frontend config: [FrontEnd/package.json](FrontEnd/package.json), [FrontEnd/next.config.mjs](FrontEnd/next.config.mjs), [FrontEnd/tsconfig.json](FrontEnd/tsconfig.json).
-- Backend entry: [BackEnd/app.py](BackEnd/app.py).
-- Backend modules: [BackEnd/src/models](BackEnd/src/models), [BackEnd/src/routers](BackEnd/src/routers), [BackEnd/src/schemas](BackEnd/src/schemas).
-- Static assets: [FrontEnd/public](FrontEnd/public).
+## Monorepo Layout
+- Frontend app routes: FrontEnd/app (auth, admin, students, teachers, attendance)
+- UI components: FrontEnd/components/ui
+- Backend entry: BackEnd/app.py (creates app via src.create_app)
+- Backend modules: BackEnd/src/{models,routers,schemas}
 
 ## Getting Started
 ### Prerequisites
-- Node.js 18+ and pnpm or npm
+- Node.js 18+
 - Python 3.10+
 
-### Frontend Setup
+### Frontend
 ```powershell
-cd "C:\Users\Dark Wolf 🐺\Desktop\sms_task1\FrontEnd"
+cd "C:\Users\Dark Wolf 🐺\Desktop\Student Management System\FrontEnd"
 # Prefer pnpm
 pnpm install
 pnpm dev
 # Or with npm
 npm install
 npm run dev
+# App: http://localhost:3000
 ```
-App runs on http://localhost:3000.
 
-### Backend Setup
+### Backend
 ```powershell
-cd "C:\Users\Dark Wolf 🐺\Desktop\sms_task1\BackEnd"
+cd "C:\Users\Dark Wolf 🐺\Desktop\Student Management System\BackEnd"
 python -m venv .venv
 .venv\Scripts\Activate.ps1
+# Intentionally not tracking requirements file in VCS
+# If needed locally, install packages manually or from your own file
 pip install -r requirments.txt
 python app.py
+# API: http://localhost:5000
 ```
-API runs on http://localhost:5000.
 
 ## Environment Variables
-### Frontend
-Create [FrontEnd/.env](FrontEnd/.env) with values such as:
+### Frontend (FrontEnd/.env)
 ```
 NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
 NEXT_PUBLIC_APP_NAME=Student Management System
 ```
 
-### Backend
-Create [BackEnd/.env](BackEnd/.env) with values such as:
+### Backend (BackEnd/.env)
 ```
 FLASK_ENV=development
 SECRET_KEY=super-secret-key
@@ -94,78 +77,37 @@ CORS_ORIGINS=http://localhost:3000
 ```
 
 ## API Overview
-Routers live in [BackEnd/src/routers](BackEnd/src/routers):
-- Auth: [BackEnd/src/routers/auth_router.py](BackEnd/src/routers/auth_router.py)
-	- `POST /api/auth/login` — login
-	- `POST /api/auth/signup` — register admin
-	- `POST /api/auth/logout` — logout
-- Students: [BackEnd/src/routers/students_router.py](BackEnd/src/routers/students_router.py)
-	- `GET /api/students` — list students
-	- `POST /api/students` — create student
-	- `GET /api/students/{id}` — get student
-	- `PUT /api/students/{id}` — update student
-	- `DELETE /api/students/{id}` — delete student
-- Teachers: [BackEnd/src/routers/teachers_router.py](BackEnd/src/routers/teachers_router.py)
-	- `GET /api/teachers` — list teachers
-	- `POST /api/teachers` — create teacher
-	- `GET /api/teachers/{id}` — get teacher
-	- `PUT /api/teachers/{id}` — update teacher
-	- `DELETE /api/teachers/{id}` — delete teacher
-- Admins: [BackEnd/src/routers/admin_router.py](BackEnd/src/routers/admin_router.py)
-	- `GET /api/admins` — list admins
-	- `POST /api/admins` — create admin
-- Attendance: [BackEnd/src/routers/attendance_router.py](BackEnd/src/routers/attendance_router.py)
-	- `GET /api/attendance` — list records
-	- `POST /api/attendance` — mark attendance
-	- `GET /api/attendance/{id}` — get record
+- Auth: POST /api/auth/login, POST /api/auth/signup, POST /api/auth/logout
+- Students: GET/POST /api/students, GET/PUT/DELETE /api/students/{id}
+- Teachers: GET/POST /api/teachers, GET/PUT/DELETE /api/teachers/{id}
+- Admins: GET/POST /api/admins
+- Attendance: GET/POST /api/attendance, GET /api/attendance/{id}
 
-Schemas are under [BackEnd/src/schemas](BackEnd/src/schemas) and models under [BackEnd/src/models](BackEnd/src/models).
+## Git
+This repo ignores venvs, node_modules, build artifacts, env files, and BackEnd/requirments.txt by design. See .gitignore.
 
-## Database
-- Development: SQLite (`sqlite:///sms.db`)
-- Production: PostgreSQL (`postgresql://user:pass@host:port/dbname`)
-- Migrations: recommended via Alembic (not included by default)
-
-## Scripts
-### Frontend
-- `dev` — run local dev server
-- `build` — production build
-- `start` — start a built app
-
-### Backend
-- `app.py` — runs Flask server via [BackEnd/app.py](BackEnd/app.py)
-
-## Git & Deployment
-### First Commit & Remote
+### First Push (already configured here)
 ```powershell
-cd "C:\Users\Dark Wolf 🐺\Desktop\sms_task1"
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
+cd "C:\Users\Dark Wolf 🐺\Desktop\Student Management System"
+git init
+git branch -M main
 git add .
-git commit -m "Initial commit: project setup"
-```
-
-### Create GitHub Repo and Push (CLI)
-```powershell
-gh auth login
-gh repo create sms-backend-frontend --source=. --remote=origin --private --push
-```
-
-### Manual Remote
-```powershell
-git remote add origin https://github.com/<user>/sms-backend-frontend.git
+git commit -m "Initial commit"
+git remote add origin https://github.com/muzammaldeveloper/Student-Management-System.git
 git push -u origin main
 ```
 
-## Contributing
-- Fork the repo and create a feature branch.
-- Run lint/tests locally before opening a PR.
-- Keep PRs focused and well‑described.
+### Ongoing
+```powershell
+git add .
+git commit -m "Update"
+git push
+```
 
 ## Troubleshooting
-- Windows CRLF/LF warnings can be solved by adding `.gitattributes` and/or `git config core.autocrlf true`.
-- Ensure environment files exist: [FrontEnd/.env](FrontEnd/.env) and [BackEnd/.env](BackEnd/.env).
-- Verify ports are available (Frontend 3000, Backend 5000).
+- Windows line endings: this repo includes .gitattributes for CRLF/LF handling
+- Ensure .env files exist in FrontEnd and BackEnd
+- Verify ports 3000 (frontend) and 5000 (backend) are free
 
 ## License
 TBD

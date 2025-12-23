@@ -1,0 +1,9 @@
+* text=auto
+
+# Windows scripts with CRLF
+*.bat eol=crlf
+*.cmd eol=crlf
+*.ps1 eol=crlf
+
+# Unix scripts with LF
+*.sh eol=lf
