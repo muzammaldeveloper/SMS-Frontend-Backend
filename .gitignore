@@ -1,34 +1,79 @@
-# Python
-__pycache__/
-*.pyc
-env/
-venv/
-class/
+# =============================
+# Root .gitignore for workspace
+# Backend (Python/FastAPI) + Frontend (Next.js with pnpm)
+# Windows/IDE artifacts, logs, env files
+# =============================
 
-# Environment variables
+# ---- Python backend (FastAPI) ----
+# Byte-compiled / optimized / DLL files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Project-specific venv folder
+BackEnd/class/
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+htmlcov/
+
+# Type checker / analysis caches
+.mypy_cache/
+.pyre/
+.ruff_cache/
+
+# ---- Secrets / Environment ----
 .env
 .env.*
-!.env.example
+*.env
 
-# Node / Next.js
-node_modules/
-.next/
+# ---- Logs ----
+logs/
+*.log
+*.-debug.log*
+
+# ---- OS / Editor junk ----
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.history/
+
+# ---- Generic build outputs ----
 dist/
 build/
 
-# Logs
-*.log
-logs/
+# ---- Node/Next.js frontend ----
+FrontEnd/node_modules/
+FrontEnd/.next/
+FrontEnd/.turbo/
+FrontEnd/out/
+FrontEnd/.vercel/
+FrontEnd/.eslintcache
+FrontEnd/pnpm-debug.log*
+FrontEnd/npm-debug.log*
+FrontEnd/yarn-debug.log*
+FrontEnd/yarn-error.log*
+FrontEnd/.parcel-cache/
+FrontEnd/coverage/
 
-# Database
-*.db
-*.sqlite
-*.sql
+# Keep lockfiles (tracked)
+# !FrontEnd/pnpm-lock.yaml
 
-# IDE
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
